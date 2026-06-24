@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../Models/product_model.dart';
+import 'dart:convert';
 
 
 class ProductDetailPage extends StatelessWidget {
@@ -27,6 +28,15 @@ class ProductDetailPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
+                // Tampilkan gambar produk jika ada
+                product.image.isNotEmpty
+                    ? Image.memory(
+                        base64Decode(product.image),
+                        width: double.infinity,
+                        height: 250,
+                        fit: BoxFit.cover,
+                      )
+                    : const SizedBox.shrink(),
                 Text(
                   product.name,
                   style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../Models/product_model.dart';
+import 'dart:convert';
+
 
 
 class ProductCard extends StatelessWidget {
@@ -34,22 +36,30 @@ class ProductCard extends StatelessWidget {
             const SizedBox(height: 5),
             Text('Rp ${product.price}'),
             const SizedBox(height: 5),
-            Text(product.description),
+            product.image.isNotEmpty
+                ? Image.memory(
+                    base64Decode(product.image),
+                    width: 120,
+                    height: 120,
+                    fit: BoxFit.cover,
+                  )
+                : const SizedBox.shrink(),
           ],
         ),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              icon: const Icon(Icons.edit, color: Colors.blue),
+              onPressed: onEdit,
+            ),
+            IconButton(
+              icon: const Icon(Icons.delete, color: Colors.red),
+              onPressed: onDelete,
+            ),
+          ],
+        )
 
-        leading: onEdit != null
-            ? IconButton(
-                icon: const Icon(Icons.edit, color: Colors.blue),
-                onPressed: onEdit,
-              )
-            : null,
-        trailing: onDelete != null
-            ? IconButton(
-                icon: const Icon(Icons.delete, color: Colors.red),
-                onPressed: onDelete,
-              )
-            : null,
       ),
     );
   }
